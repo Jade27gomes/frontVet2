@@ -147,16 +147,17 @@ export default function Cadastro() {
               />
             </label>
 
-            <label>
-              Senha
-              <input 
-                type="password" 
-                placeholder="Senha" 
-                value={novoCliente.b_senha}
-                onChange={(e) => setNovoCliente({ ...novoCliente, b_senha: e.target.value })}
-                required
-              />
-            </label>
+            <label className="campo-senha">
+  Senha
+  <input 
+    type="password" 
+    placeholder="Senha" 
+    value={novoCliente.b_senha}
+    onChange={(e) => setNovoCliente({ ...novoCliente, b_senha: e.target.value })}
+    required
+  />
+</label>
+
 
             <label>
               Nome

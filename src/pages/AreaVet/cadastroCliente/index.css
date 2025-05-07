@@ -135,6 +135,19 @@ body {
     transition: border-color 0.3s;
   }
   
+  .campo-senha {
+    margin-top: 20px; /* ajuste conforme necessário */
+  }
+  
+  .clientes-formulario input {
+  padding: 10px;
+  margin-bottom: 12px; /* Espaço entre todos os inputs */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  display: block;
+  width: 100%;
+}
   .client-form input:focus {
     border-color: #888;
     outline: none;
