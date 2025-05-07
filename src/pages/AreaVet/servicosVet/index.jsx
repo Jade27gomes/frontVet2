@@ -1,78 +1,60 @@
-import React from "react";
-import "./index.css";
-import logo from '../../../img/logologin.png';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './index.css';
+import Sidebar from '../../../components/sidebar';
+
+const BASE_URL = 'http://localhost:2025/cadastroatendimento';
 
 export default function ServicoAnimal() {
+  const [atendimentos, setAtendimentos] = useState([]);
+
+  const today = new Date().toLocaleDateString('pt-BR');
+
+  useEffect(() => {
+    listarAtendimentos();
+  }, []);
+
+  const listarAtendimentos = async () => {
+    try {
+      const res = await axios.get(BASE_URL);
+      setAtendimentos(res.data);
+    } catch (error) {
+      console.error("Erro ao listar atendimentos:", error);
+      alert('Erro ao buscar atendimentos');
+    }
+  };
+
   return (
     <div className="container-servico">
-      <aside className="sidebar">
-        <img src={logo} alt="Logo Dog" className="logo" />
-        <h2 className="logo-title">Dog’s</h2>
-        <nav>
-          <ul>
-            <li>📋 Dashboard</li>
-            <li>👤 Clientes</li>
-            <li className="active">🧳 Serviços</li>
-            <li>🐾 Animais</li>
-          </ul>
-        </nav>
-        <button className="logout-btn">Sair ⮕</button>
-      </aside>
+      <Sidebar />
 
       <main className="main-content">
         <div className="header">
-          <span className="data">18/04/2023</span>
+          <span className="data">{today}</span>
           <h1>Serviços</h1>
           <div className="search-bar">
-            <input type="text" placeholder="Ellie" />
+            <input type="text" placeholder="Pesquisar atendimento..." />
             <button>🔍 Pesquisar</button>
           </div>
         </div>
 
-        <p className="resultado-texto">5 resultados</p>
+        <p className="resultado-texto">{atendimentos.length} resultados</p>
 
-        <div className="card-servico em-andamento">
-          <div className="card-header">
-            <p><strong>Nome do animal</strong><br />Nome do dono</p>
-            <span className="preco">R$ 75,00 <span className="dot laranja" /></span>
+        {atendimentos.map((item) => (
+          <div key={item.id} className="card-servico em-andamento">
+            <div className="card-header">
+              <p><strong>Animal ID:</strong> {item.id_animal}<br /><strong>Usuário ID:</strong> {item.id_usuario}</p>
+              <span className="preco">R$ {item.preco.toFixed(2)} <span className="dot laranja" /></span>
+            </div>
+            <div className="info">
+              <p><strong>Descrição:</strong> {item.descricao}</p>
+              <p><strong>Data:</strong> {item.data_agendada} &nbsp; <strong>Hora:</strong> {item.hora_agendada}</p>
+              <p><strong>Duração:</strong> {item.atendimento_horas} hora(s)</p>
+              <p><strong>Status:</strong> <span className="status-em-andamento">em andamento</span></p>
+              {/* Adapte para incluir nome do animal, dono e contato quando estiverem disponíveis no endpoint */}
+            </div>
           </div>
-          <div className="info">
-            <p><strong>Animal:</strong> Gato &nbsp; <strong>Sexo:</strong> Masculino &nbsp; <strong>Idade:</strong> 8 anos</p>
-            <p>Procedimento feito Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <p><strong>Status:</strong> <span className="status-em-andamento">em andamento</span></p>
-            <p><strong>Dono:</strong> <span className="status-aguardando">Aguardando</span></p>
-            <p>Sem agendamento</p>
-            <p><strong>Contato:</strong> (13) 9684-4814</p>
-          </div>
-        </div>
-
-        <div className="card-servico concluido">
-          <div className="card-header">
-            <p><strong>Nome do animal</strong><br />Nome do dono</p>
-            <span className="preco">R$ 95,00 <span className="dot verde" /></span>
-          </div>
-          <div className="info">
-            <p><strong>Animal:</strong> Gato &nbsp; <strong>Sexo:</strong> Masculino &nbsp; <strong>Idade:</strong> 8 anos</p>
-            <p>Procedimento feito Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <p><strong>Status:</strong> <span className="status-concluido">Concluído</span></p>
-            <p><strong>Dono:</strong> <span className="status-caminho">A caminho</span></p>
-            <p>18h - 19h</p>
-            <p><strong>Contato:</strong> (13) 9684-4814</p>
-          </div>
-        </div>
-
-        <div className="card-servico finalizado">
-          <div className="card-header">
-            <p><strong>Nome do animal</strong><br />Nome do dono</p>
-            <span className="preco">R$ 250,00 <span className="dot azul" /></span>
-          </div>
-          <div className="info">
-            <p><strong>Animal:</strong> Gato &nbsp; <strong>Sexo:</strong> Masculino &nbsp; <strong>Idade:</strong> 8 anos</p>
-            <p>Procedimento feito Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <p><strong>Status:</strong> <span className="status-finalizado">Finalizado</span></p>
-            <p><strong>Contato:</strong> (13) 9684-4814</p>
-          </div>
-        </div>
+        ))}
 
         <button className="adicionar-btn">➕ Adicionar</button>
       </main>
