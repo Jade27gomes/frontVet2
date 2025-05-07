@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './index.css';
-import logo from '../../../img/logologin.png';
-import { FiLogOut } from 'react-icons/fi';
+import Sidebar from '../../../components/sidebar';
 
 export default function CadastroPet() {
   const [animal, setAnimal] = useState({
@@ -78,22 +77,7 @@ export default function CadastroPet() {
 
   return (
     <div className="novo-animal-container">
-      <aside className="sidebar">
-        <img src={logo} alt="Logo Dog" className="logo" />
-        <h2 className="logo-title">Dog’s</h2>
-        <nav>
-          <ul>
-            <li>📋 Dashboard</li>
-            <li>👤 Clientes</li>
-            <li>🧳 Serviços</li>
-            <li className="active">🐾 Animais</li>
-          </ul>
-        </nav>
-        <button className="logout-btn">
-          Sair <FiLogOut />
-        </button>
-      </aside>
-
+      <Sidebar />
       <div className="form-section">
         <h1>Novo animal</h1>
         <form className="form-animal" onSubmit={handleSubmit}>

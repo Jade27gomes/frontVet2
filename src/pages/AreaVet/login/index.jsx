@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.css';
+import { Link } from 'react-router-dom';
 
 export default function AreaVet() {
   return (
@@ -33,7 +34,7 @@ export default function AreaVet() {
           <a href="/" className="vet-esqueci-senha">Esqueci minha senha</a>
         </div>
 
-        <button type="submit" className="vet-login-button">Entrar</button>
+        <button type="submit" className="vet-login-button"><Link to = "/dashboard">Entrar</Link></button>
       </form>
 
       <div className="vet-login-footer" />
