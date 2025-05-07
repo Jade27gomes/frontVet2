@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, #415866 100%);
+    color: #333;
+  }
+  
+  .services-container {
+    text-align: center;
+    padding: 50px 20px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #1e1e1e;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+    color: #444;
+  }
+  
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .card {
+    background: #3e3e3e;
+    border-radius: 20px;
+    padding: 30px 20px;
+    color: #fff;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:nth-child(2n) {
+    background: #2f3459;
+  }
+  
+  .card:nth-child(3n) {
+    background: #586753;
+  }
+  
+  .card:hover {
+    transform: scale(1.03);
+  }
+  
+  .card h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+  }
+  
+  .card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
