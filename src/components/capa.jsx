@@ -11,7 +11,7 @@ export default function Capa() {
               Cuidamos do seu pet com carinho e dedicação<br />
               para uma vida mais saudável e feliz.
             </p>
-            <button className="vet-button">AGENDAR CONSULTA PELO FÓRUM</button>
+            <button className="vet-button">AGENDAR CONSULTA PELO WHATSAPP</button>
           </div>
           <img
             src={require('../img/page2.png')}

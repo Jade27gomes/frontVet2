@@ -23,7 +23,7 @@ root.render(
         <Route path = '/cadastroPet' element = {<CadastroPet/>} />
         <Route path = '/dashboard' element = {<Dashboard/>} />
         <Route path = '/servicoAnimal' element = {<ServicoAnimal/>} />
-        <Route path = '/cadastroServicoAnimal' element = {<CadastroServicoVet/>} />
+        <Route path = '/cadastroServicoVet' element = {<CadastroServicoVet/>} />
         <Route path = '/landpage' element = {<LandPage/>} />
       </Routes>
     </BrowserRouter>
