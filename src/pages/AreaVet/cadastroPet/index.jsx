@@ -77,7 +77,6 @@ export default function CadastroPet() {
 
   return (
     <div className="novo-animal-container">
-      <Sidebar />
       <div className="form-section">
         <h1>Novo animal</h1>
         <form className="form-animal" onSubmit={handleSubmit}>

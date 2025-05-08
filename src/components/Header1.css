@@ -1,0 +1,47 @@
+/* Estilo do Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4caf50; /* Cor de fundo do header */
+    padding: 15px 30px; /* Espaçamento interno */
+    color: white;
+    font-size: 18px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Garante que o header fique acima de outros elementos */
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .header .nav-buttons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .header .nav-buttons button {
+    background-color: #fff;
+    color: #4caf50;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .header .nav-buttons button:hover {
+    background-color: #388e3c;
+    color: white;
+  }
+  
+  .main-content {
+    margin-top: 80px; /* Para dar espaço ao header fixo */
+    padding: 20px;
+  }
+  

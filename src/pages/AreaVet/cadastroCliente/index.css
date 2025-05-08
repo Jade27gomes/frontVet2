@@ -135,9 +135,27 @@ body {
     transition: border-color 0.3s;
   }
   
-  .campo-senha {
-    margin-top: 20px; /* ajuste conforme necessário */
-  }
+  /* Ajustes no campo de senha */
+.campo-senha {
+  margin-top: 1.25rem;  /* Espaco maior entre o campo de senha e o anterior */
+}
+
+.campo-senha input {
+  padding: 0.75rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #333;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.campo-senha input:focus {
+  border-color: #888;
+  outline: none;
+}
+
   
   .clientes-formulario input {
   padding: 10px;

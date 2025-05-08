@@ -1,42 +1,65 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* capa.css */
+.vet-background {
+  background-image: url('../img/page1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: flex-start; /* Alterado para alinhar no topo */
+  justify-content: flex-start;
+  padding-left: 5%; /* Reduzido de 8% para mover mais para a esquerda */
+  padding-top: 10%; /* Adicionado para mover o card para cima */
+}
+
+.vet-card {
+  background-color: rgba(0, 0, 0, 0.5); /* Transparência aumentada (de 0.7 para 0.5) */
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 370px;
+  text-align: left;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin-top: -65px; /* Adicionado para puxar um pouco mais para cima */
+}
+
+/* O restante do CSS permanece igual */
+.vet-title {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
   color: white;
+  font-weight: 600;
 }
 
-.App-link {
-  color: #61dafb;
+.vet-description {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.vet-divider {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 20px 0;
 }
 
-.img {
-  max-width: 500px;
+.vet-button {
+  background-color: #25D366;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vet-button:hover {
+  background-color: #128C7E;
 }

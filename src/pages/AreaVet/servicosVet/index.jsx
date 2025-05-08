@@ -1,62 +1,124 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './index.css';
-import Sidebar from '../../../components/sidebar';
+import { useNavigate } from 'react-router-dom';
 
-const BASE_URL = 'http://localhost:2025/cadastroatendimento';
-
-export default function ServicoAnimal() {
+export default function Atendimentos() {
   const [atendimentos, setAtendimentos] = useState([]);
-
-  const today = new Date().toLocaleDateString('pt-BR');
+  const [filteredAtendimentos, setFilteredAtendimentos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchId, setSearchId] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    listarAtendimentos();
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:2025/cadastroatendimento');
+        
+        if (response.data && Array.isArray(response.data)) {
+          setAtendimentos(response.data);
+          setFilteredAtendimentos(response.data);
+        } else {
+          throw new Error('Formato de dados inesperado');
+        }
+        
+        setLoading(false);
+      } catch (err) {
+        console.error('Erro na requisição:', err);
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const listarAtendimentos = async () => {
+  const handleSearch = () => {
+    const results = atendimentos.filter(atendimento =>
+      atendimento.id.toString().includes(searchId)
+    );
+    setFilteredAtendimentos(results);
+  };
+
+  const handleClear = () => {
+    setSearchId('');
+    setFilteredAtendimentos(atendimentos);
+  };
+
+  const handleDelete = async (id) => {
     try {
-      const res = await axios.get(BASE_URL);
-      setAtendimentos(res.data);
-    } catch (error) {
-      console.error("Erro ao listar atendimentos:", error);
-      alert('Erro ao buscar atendimentos');
+      await axios.delete(`http://localhost:2025/cadastroatendimento/${id}`);
+      setAtendimentos(atendimentos.filter(atendimento => atendimento.id !== id));
+      setFilteredAtendimentos(filteredAtendimentos.filter(atendimento => atendimento.id !== id));
+    } catch (err) {
+      console.error('Erro ao excluir atendimento:', err);
+      setError('Não foi possível excluir o atendimento');
     }
   };
 
-  return (
-    <div className="container-servico">
-      <Sidebar />
+  const handleCreateNew = () => {
+    navigate('/cadastroSERVICOVET');
+  };
 
+  const handleGoBack = () => {
+    navigate('/dashboard'); 
+  };
+
+  if (loading) {
+    return <div className="dashboard-container">Carregando...</div>;
+  }
+
+  if (error) {
+    return <div className="dashboard-container">Erro: {error}</div>;
+  }
+
+  return (
+    <div className="dashboard-container">
       <main className="main-content">
-        <div className="header">
-          <span className="data">{today}</span>
-          <h1>Serviços</h1>
-          <div className="search-bar">
-            <input type="text" placeholder="Pesquisar atendimento..." />
-            <button>🔍 Pesquisar</button>
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Pesquisar por ID"
+            value={searchId}
+            onChange={(e) => setSearchId(e.target.value)}
+          />
+          <button onClick={handleSearch}>Pesquisar</button>
+          <button onClick={handleClear}>Limpar</button>
+        </div>
+
+        <div className="action-buttons">
+          <button onClick={handleCreateNew}>Criar Novo Atendimento</button>
+          <button onClick={handleGoBack}>Voltar ao Menu Inicial</button>
+        </div>
+
+        <div className="stats">
+          <div className="stat-card">
+            <h2>{filteredAtendimentos.length}</h2>
+            <p>Atendimentos cadastrados</p>
           </div>
         </div>
 
-        <p className="resultado-texto">{atendimentos.length} resultados</p>
-
-        {atendimentos.map((item) => (
-          <div key={item.id} className="card-servico em-andamento">
-            <div className="card-header">
-              <p><strong>Animal ID:</strong> {item.id_animal}<br /><strong>Usuário ID:</strong> {item.id_usuario}</p>
-              <span className="preco">R$ {item.preco.toFixed(2)} <span className="dot laranja" /></span>
+        <div className="cards-container">
+          {filteredAtendimentos.map((atendimento) => (
+            <div className="atendimento-card" key={atendimento.id}>
+              <div className="card-header">
+                <div className="info">
+                  <strong>{atendimento.descricao || 'Descrição não informada'}</strong>
+                </div>
+              </div>
+              <div className="card-body">
+                <p><strong>ID:</strong> {atendimento.id}</p>
+                <p><strong>ID Animal:</strong> {atendimento.id_animal}</p>
+                <p><strong>ID Usuário:</strong> {atendimento.id_usuario}</p>
+                <p><strong>Data Agendada:</strong> {atendimento.data_agendada}</p>
+                <p><strong>Hora Agendada:</strong> {atendimento.hora_agendada}</p>
+                <p><strong>Preço:</strong> {atendimento.preco}</p>
+                <button onClick={() => handleDelete(atendimento.id)}>Excluir</button>
+              </div>
             </div>
-            <div className="info">
-              <p><strong>Descrição:</strong> {item.descricao}</p>
-              <p><strong>Data:</strong> {item.data_agendada} &nbsp; <strong>Hora:</strong> {item.hora_agendada}</p>
-              <p><strong>Duração:</strong> {item.atendimento_horas} hora(s)</p>
-              <p><strong>Status:</strong> <span className="status-em-andamento">em andamento</span></p>
-              {/* Adapte para incluir nome do animal, dono e contato quando estiverem disponíveis no endpoint */}
-            </div>
-          </div>
-        ))}
-
-        <button className="adicionar-btn">➕ Adicionar</button>
+          ))}
+        </div>
       </main>
     </div>
   );
