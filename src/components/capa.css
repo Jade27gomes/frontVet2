@@ -1,29 +1,26 @@
 /* capa.css */
 .vet-background {
-  background-image: url('../img/page1.jpg');
+  background-image: url('../img/capa6.jpeg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
-  align-items: flex-start; /* Alterado para alinhar no topo */
-  justify-content: flex-start;
-  padding-left: 5%; /* Reduzido de 8% para mover mais para a esquerda */
-  padding-top: 10%; /* Adicionado para mover o card para cima */
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh; /* Ajuste vertical */
 }
 
 .vet-card {
-  background-color: rgba(0, 0, 0, 0.5); /* Transparência aumentada (de 0.7 para 0.5) */
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 30px;
   border-radius: 12px;
   max-width: 370px;
   text-align: left;
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  margin-top: -65px; /* Adicionado para puxar um pouco mais para cima */
 }
 
-/* O restante do CSS permanece igual */
 .vet-title {
   font-size: 1.8rem;
   margin-bottom: 15px;

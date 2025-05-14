@@ -20,7 +20,8 @@ export default function LandPage() {
         <Servicos />
       </div><div className="pagfotos">
         <PagFoto />
-      </div><div className="footer">
+      </div>
+      <div className="footer">
         <Footer />
     </div></>
     );

@@ -3,6 +3,7 @@ import './pagFoto.css';
 import recepcaoImg from '../img/recepcaoImg.jpg';
 import consultorioImg from '../img/consultorioImg.jpg';
 
+
 const PagFoto = () => {
   return (
     <div className="pagfoto-section">
