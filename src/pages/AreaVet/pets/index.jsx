@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './index.css';
-import { useNavigate } from 'react-router-dom'; // Importação do hook useNavigate
+import { useNavigate } from 'react-router-dom';
 
 export default function Pets() {
   const [animais, setAnimais] = useState([]);
@@ -9,20 +9,18 @@ export default function Pets() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchId, setSearchId] = useState('');
-  const navigate = useNavigate(); // Inicializando o useNavigate para navegação
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:2025/cadastroAnimal');
-        
         if (response.data && Array.isArray(response.data)) {
           setAnimais(response.data);
-          setFilteredAnimais(response.data); // Inicializa com todos os animais
+          setFilteredAnimais(response.data);
         } else {
           throw new Error('Formato de dados inesperado');
         }
-        
         setLoading(false);
       } catch (err) {
         console.error('Erro na requisição:', err);
@@ -30,7 +28,6 @@ export default function Pets() {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -42,8 +39,8 @@ export default function Pets() {
   };
 
   const handleClear = () => {
-    setSearchId(''); // Limpa o campo de busca
-    setFilteredAnimais(animais); // Restaura todos os animais
+    setSearchId('');
+    setFilteredAnimais(animais);
   };
 
   const handleDelete = async (id) => {
@@ -59,6 +56,10 @@ export default function Pets() {
 
   const handleCreateNew = () => {
     navigate('/cadastropet');
+  };
+
+  const handleEdit = (id) => {
+    navigate(`/alterarCadastroPet/${id}`);
   };
 
   const handleGoBack = () => {
@@ -84,7 +85,7 @@ export default function Pets() {
             onChange={(e) => setSearchId(e.target.value)}
           />
           <button onClick={handleSearch}>Pesquisar</button>
-          <button onClick={handleClear}>Limpar</button> {/* Botão de limpar */}
+          <button onClick={handleClear}>Limpar</button>
         </div>
 
         <div className="action-buttons">
@@ -108,13 +109,28 @@ export default function Pets() {
                   <strong>{animal.nome || 'Nome não informado'}</strong>
                 </div>
               </div>
+
+              <div className="pet-photo">
+                <img
+                  src={`http://localhost:2025/animal/${animal.id_novoAnimal}/imagem`}
+                  alt="Foto do Pet"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = '/img/pet-placeholder.png'; // fallback caso queira
+                  }}
+                />
+              </div>
+
               <div className="card-body">
                 <p><strong>ID:</strong> {animal.id_novoAnimal}</p>
                 {animal.deficiencias && <p><strong>Deficiências:</strong> {animal.deficiencias}</p>}
                 {animal.intolerancias && <p><strong>Intolerâncias:</strong> {animal.intolerancias}</p>}
-                {animal.nascimento && <p><strong>Data de Nascimento:</strong> {animal.nascimento}</p>}
+                {animal.nascimento && <p><strong>Data de Nascimento:</strong> {animal.data_nascimento}</p>}
                 {animal.sexo && <p><strong>Sexo:</strong> {animal.sexo}</p>}
-                <button onClick={() => handleDelete(animal.id_novoAnimal)}>Excluir</button>
+                <div className="button-group">
+                  <button onClick={() => handleDelete(animal.id_novoAnimal)}>Excluir</button>
+                  <button onClick={() => handleEdit(animal.id_novoAnimal)}>Alterar</button>
+                </div>
               </div>
             </div>
           ))}

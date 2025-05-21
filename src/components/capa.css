@@ -1,14 +1,14 @@
-/* capa.css */
+
 .vet-background {
   background-image: url('../img/capa6.jpeg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 10vh; /* Ajuste vertical */
+  padding-top: 10vh; 
 }
 
 .vet-card {

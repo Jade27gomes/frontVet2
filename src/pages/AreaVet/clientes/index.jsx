@@ -2,30 +2,28 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './index.css';
 import logo from '../../../img/logologin.png';
-import { Link, useNavigate } from 'react-router-dom'; // Alteração aqui
+import { useNavigate } from 'react-router-dom';
 
 export default function Pets() {
   const [animais, setAnimais] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchId, setSearchId] = useState(''); // Estado para armazenar o ID pesquisado
-  const [filteredAnimais, setFilteredAnimais] = useState(animais); // Estado para armazenar os animais filtrados
-  const [filterMessage, setFilterMessage] = useState(''); // Mensagem de filtro
-  const [deleteMessage, setDeleteMessage] = useState(''); // Mensagem de exclusão
-  const navigate = useNavigate(); // Alteração aqui
+  const [searchId, setSearchId] = useState('');
+  const [filteredAnimais, setFilteredAnimais] = useState([]);
+  const [filterMessage, setFilterMessage] = useState('');
+  const [deleteMessage, setDeleteMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:2025/cadastro');
-        
         if (response.data && Array.isArray(response.data)) {
           setAnimais(response.data);
-          setFilteredAnimais(response.data); // Inicializa com todos os animais
+          setFilteredAnimais(response.data);
         } else {
           throw new Error('Formato de dados inesperado');
         }
-        
         setLoading(false);
       } catch (err) {
         console.error('Erro na requisição:', err);
@@ -48,8 +46,9 @@ export default function Pets() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:2025/cadastro/${id}`);
-      setAnimais(animais.filter(animal => animal.Id !== id));
-      setFilteredAnimais(filteredAnimais.filter(animal => animal.Id !== id));
+      const updatedList = animais.filter(animal => animal.Id !== id);
+      setAnimais(updatedList);
+      setFilteredAnimais(updatedList);
       setDeleteMessage('Cadastro excluído com sucesso!');
     } catch (err) {
       console.error('Erro ao excluir cadastro:', err);
@@ -64,58 +63,49 @@ export default function Pets() {
   };
 
   const handleCreateNew = () => {
-    // Navega para a página de criação de novo animal
-    navigate('/cadastrocliente'); // Alteração aqui
+    navigate('/cadastrocliente');
   };
 
   const handleGoBack = () => {
-    // Navega de volta para o menu inicial
-    navigate('/dashboard'); // Alteração aqui
+    navigate('/dashboard');
   };
 
-  if (loading) {
-    return <div className="dashboard-container">Carregando...</div>;
-  }
+  const handleEdit = (animal) => {
+    navigate(`/AlterarCadastroCliente/${animal.Id}`);
+  };
 
-  if (error) {
-    return <div className="dashboard-container">Erro: {error}</div>;
-  }
+  if (loading) return <div className="dashboard-container">Carregando...</div>;
+  if (error) return <div className="dashboard-container">Erro: {error}</div>;
 
   return (
     <div className="dashboard-container">
       <main className="main-content">
-        
-
-        {/* Barra de busca com botão */}
         <div className="search-bar">
           <input
             type="text"
             placeholder="Pesquisar por ID"
             value={searchId}
-            onChange={(e) => setSearchId(e.target.value)} // Atualiza o estado do ID
+            onChange={(e) => setSearchId(e.target.value)}
           />
           <button onClick={handleSearch}>Pesquisar</button>
           {filterMessage && <p className="filter-message">{filterMessage}</p>}
         </div>
 
-        {/* Botão para limpar filtro */}
         {filterMessage && (
           <div className="clear-filter">
             <button onClick={handleClearFilter}>Limpar Filtro</button>
           </div>
         )}
 
-        {/* Mensagem de exclusão */}
         {deleteMessage && <div className="delete-message">{deleteMessage}</div>}
 
         <div className="stats">
           <div className="stat-card">
             <h2>{filteredAnimais.length}</h2>
-            <p>Usuarios cadastrados</p>
+            <p>Usuários cadastrados</p>
           </div>
         </div>
 
-        {/* Botões de ação */}
         <div className="action-buttons">
           <button onClick={handleCreateNew}>Criar Novo</button>
           <button onClick={handleGoBack}>Voltar ao Menu Inicial</button>
@@ -139,7 +129,10 @@ export default function Pets() {
                 <p><strong>Cidade:</strong> {animal.Cidade}</p>
                 <p><strong>Estado:</strong> {animal.Estado}</p>
                 <p><strong>CEP:</strong> {animal.Cep}</p>
-                <button onClick={() => handleDelete(animal.Id)}>Excluir</button> {/* Botão de excluir */}
+                <div className="action-buttons-card">
+                  <button onClick={() => handleEdit(animal)}>Alterar</button>
+                  <button onClick={() => handleDelete(animal.Id)}>Excluir</button>
+                </div>
               </div>
             </div>
           ))}

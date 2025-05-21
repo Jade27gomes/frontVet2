@@ -15,14 +15,12 @@ export default function Atendimentos() {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:2025/cadastroatendimento');
-        
         if (response.data && Array.isArray(response.data)) {
           setAtendimentos(response.data);
           setFilteredAtendimentos(response.data);
         } else {
           throw new Error('Formato de dados inesperado');
         }
-        
         setLoading(false);
       } catch (err) {
         console.error('Erro na requisição:', err);
@@ -57,12 +55,16 @@ export default function Atendimentos() {
     }
   };
 
+  const handleEdit = (id) => {
+    navigate(`/AlterarCadastroAtendimento/${id}`);
+  };
+
   const handleCreateNew = () => {
     navigate('/cadastroSERVICOVET');
   };
 
   const handleGoBack = () => {
-    navigate('/dashboard'); 
+    navigate('/dashboard');
   };
 
   if (loading) {
@@ -114,7 +116,10 @@ export default function Atendimentos() {
                 <p><strong>Data Agendada:</strong> {atendimento.data_agendada}</p>
                 <p><strong>Hora Agendada:</strong> {atendimento.hora_agendada}</p>
                 <p><strong>Preço:</strong> {atendimento.preco}</p>
-                <button onClick={() => handleDelete(atendimento.id)}>Excluir</button>
+                <div className="card-buttons">
+                  <button className="delete-button" onClick={() => handleDelete(atendimento.id)}>Excluir</button>
+                  <button className="edit-button" onClick={() => handleEdit(atendimento.id)}>Alterar</button>
+                </div>
               </div>
             </div>
           ))}
