@@ -1,182 +1,26 @@
-/* Container geral */
-.animais-container {
-  display: flex;
-  height: 100vh;
-  font-family: sans-serif;
-  color: #333;
-  background-color: #f2f2f2;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 220px;
-  background-color: #f1f2f3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 2rem;
-}
-
-.logo {
-  width: 70px;
-  margin-bottom: 0.5rem;
-}
-
-.logo-title {
-  font-size: 1.5rem;
-  color: #3b4a54;
-  margin-bottom: 2rem;
-}
-
-.sidebar nav ul {
-  list-style: none;
-  padding: 0;
-  width: 100%;
-}
-
-.sidebar nav li {
-  width: 100%;
-  padding: 12px 24px;
-  cursor: pointer;
-  text-align: left;
-  font-size: 1rem;
-  color: #3b4a54;
-  transition: background-color 0.2s;
-}
-
-.sidebar nav li.active,
-.sidebar nav li:hover {
-  background-color: #d1dfda;
-  font-weight: bold;
-}
-
-.logout-btn {
-  margin-top: auto;
-  margin-bottom: 1rem;
-  background: none;
-  border: 1px solid #ccc;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.logout-btn:hover {
-  background-color: #e2e8f0;
-}
-
-/* Conteúdo principal */
-.main-content {
-  flex-grow: 1;
-  padding: 30px;
-  overflow-y: auto;
-}
-
-/* Topo */
-.top-bar {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.data {
-  display: inline-block;
-  background-color: #f2f2f2;
-  padding: 5px 12px;
-  border-radius: 15px;
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.top-bar h1 {
-  margin-top: 5px;
-  font-size: 22px;
-  color: #333;
-}
-
-/* Barra de busca */
-.search-bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.search-bar input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.search-bar button {
-  padding: 10px 14px;
-  background-color: #2b7a78;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-/* Resultados */
-.results-count {
-  font-size: 12px;
-  color: #888;
-  text-align: right;
-  margin-bottom: 15px;
-}
-
-/* Cards dos animais */
-.animal-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.animal-card {
-  background-color: white;
+.pet-photo {
+  width: 120px;
+  height: 120px;
+  background-color: #eee;
   border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.animal-header {
+  overflow: hidden;
+  margin: 10px auto;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  background-color: #ccc;
-  border-radius: 50%;
-}
-
-.animal-info p {
-  margin: 5px 0;
+  justify-content: center;
+  color: #777;
   font-size: 14px;
 }
 
-.last-appointment {
-  font-size: 12px;
-  color: #666;
+.pet-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
-/* Botão adicionar */
-.add-button {
-  margin-top: 20px;
-  background-color: #3aafa9;
-  color: white;
-  padding: 10px 18px;
-  font-size: 14px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  float: right;
+.button-group {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  gap: 10px;
+  margin-top: 8px;
 }

@@ -112,7 +112,7 @@ export default function Cadastro() {
 
   return (
     <div className="app-container">
-        <Sidebar />
+
       <main className="main-content">
         <div className="date-display">{today}</div>
 
@@ -133,7 +133,7 @@ export default function Cadastro() {
               />
             </label>
 
-            <label className="campo-senha">
+  <label className="campo-senha">
   Senha
   <input 
     type="password" 
@@ -143,6 +143,7 @@ export default function Cadastro() {
     required
   />
 </label>
+
 
 
             <label>
@@ -240,33 +241,9 @@ export default function Cadastro() {
           </form>
         </div>
 
-        <div className="search-container">
-          <h2>Buscar por ID</h2>
-          <input 
-            type="number" 
-            placeholder="ID do usuário" 
-            value={idBusca} 
-            onChange={(e) => setIdBusca(e.target.value)} 
-          />
-          <button onClick={buscarPorId}>Buscar</button>
+        
 
-          {usuarioUnico ? (
-            <pre>{JSON.stringify(usuarioUnico, null, 2)}</pre>
-          ) : (
-            <p>Nenhum usuário encontrado.</p>
-          )}
-        </div>
-
-        <div className="user-list">
-          <h2>Listar Usuários</h2>
-          <button onClick={listarUsuarios}>Listar Todos</button>
-          {clientes.length > 0 ? (
-            <pre>{JSON.stringify(clientes, null, 2)}</pre>
-          ) : (
-            <p>Nenhum usuário listado.</p>
-          )}
-        </div>
-      </main>
+              </main>
     </div>
   );
 }

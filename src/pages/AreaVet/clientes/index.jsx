@@ -1,48 +1,143 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './index.css';
-import { FiSearch, FiUser, FiMapPin, FiPhone, FiPlus, FiLogOut } from 'react-icons/fi';
-import Sidebar from '../../../components/sidebar';
-import { Link } from 'react-router-dom';
+import logo from '../../../img/logologin.png';
+import { useNavigate } from 'react-router-dom';
 
-export default function Clientes() {
-  const [clientes] = useState([
-    { nome: 'Cleiton Rasta', idade: 24, pets: 2 },
-    { nome: 'Maluquinho da Silva', idade: 18, pets: 3 },
-    { nome: 'Dracula com Síndrome de Wandinha', idade: 32, pets: 4 },
-    { nome: 'Rasta Fire Esqueça Tudo Slk', idade: 28, pets: 2 },
-  ]);
+export default function Pets() {
+  const [animais, setAnimais] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchId, setSearchId] = useState('');
+  const [filteredAnimais, setFilteredAnimais] = useState([]);
+  const [filterMessage, setFilterMessage] = useState('');
+  const [deleteMessage, setDeleteMessage] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:2025/cadastro');
+        if (response.data && Array.isArray(response.data)) {
+          setAnimais(response.data);
+          setFilteredAnimais(response.data);
+        } else {
+          throw new Error('Formato de dados inesperado');
+        }
+        setLoading(false);
+      } catch (err) {
+        console.error('Erro na requisição:', err);
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSearch = () => {
+    const results = animais.filter(animal =>
+      animal.Id.toString().includes(searchId)
+    );
+    setFilteredAnimais(results);
+    setFilterMessage(`Resultados filtrados para ID: ${searchId}`);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:2025/cadastro/${id}`);
+      const updatedList = animais.filter(animal => animal.Id !== id);
+      setAnimais(updatedList);
+      setFilteredAnimais(updatedList);
+      setDeleteMessage('Cadastro excluído com sucesso!');
+    } catch (err) {
+      console.error('Erro ao excluir cadastro:', err);
+      setError('Não foi possível excluir o cadastro');
+    }
+  };
+
+  const handleClearFilter = () => {
+    setSearchId('');
+    setFilteredAnimais(animais);
+    setFilterMessage('');
+  };
+
+  const handleCreateNew = () => {
+    navigate('/cadastrocliente');
+  };
+
+  const handleGoBack = () => {
+    navigate('/dashboard');
+  };
+
+  const handleEdit = (animal) => {
+    navigate(`/AlterarCadastroCliente/${animal.Id}`);
+  };
+
+  if (loading) return <div className="dashboard-container">Carregando...</div>;
+  if (error) return <div className="dashboard-container">Erro: {error}</div>;
 
   return (
-    <div className="clientes-container">
-      <Sidebar/>
-
-      <main className="clientes-main">
-        <div className="clientes-header">
-          <span className="date">18/04/2023</span>
-          <h1>Clientes</h1>
+    <div className="dashboard-container">
+      <main className="main-content">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Pesquisar por ID"
+            value={searchId}
+            onChange={(e) => setSearchId(e.target.value)}
+          />
+          <button onClick={handleSearch}>Pesquisar</button>
+          {filterMessage && <p className="filter-message">{filterMessage}</p>}
         </div>
 
-        <div className="clientes-search">
-          <input type="text" placeholder="Cleiton Rasta" />
-          <button><FiSearch /></button>
+        {filterMessage && (
+          <div className="clear-filter">
+            <button onClick={handleClearFilter}>Limpar Filtro</button>
+          </div>
+        )}
+
+        {deleteMessage && <div className="delete-message">{deleteMessage}</div>}
+
+        <div className="stats">
+          <div className="stat-card">
+            <h2>{filteredAnimais.length}</h2>
+            <p>Usuários cadastrados</p>
+          </div>
         </div>
 
-        <div className="clientes-list">
-          {clientes.map((cliente, index) => (
-            <div className="cliente-card" key={index}>
-              <p><FiUser /> {cliente.nome}, {cliente.idade} anos</p>
-              <p><FiMapPin /> Registro - SP, 11900-000</p>
-              <p>📍 Avenida bom dia e cia ai papai esqueça, 2258, Bairro maneiro</p>
-              <p><FiPhone /> (13) 9648-9955</p>
-              <div className="cliente-info-footer">
-                <span>Cliente desde 11 de setembro de 2022</span>
-                <span>🐶 {cliente.pets} pets</span>
+        <div className="action-buttons">
+          <button onClick={handleCreateNew}>Criar Novo</button>
+          <button onClick={handleGoBack}>Voltar ao Menu Inicial</button>
+        </div>
+
+        <div className="cards-container">
+          {filteredAnimais.map((animal, index) => (
+            <div className="animal-card" key={index}>
+              <div className="card-header">
+                <div className="avatar">🐶</div>
+                <div className="info">
+                  <strong>{animal.Nome || 'Nome não informado'}</strong>
+                </div>
+              </div>
+              <div className="card-body">
+                <p><strong>ID:</strong> {animal.Id}</p>
+                <p><strong>CPF:</strong> {animal.Cpf}</p>
+                <p><strong>Celular:</strong> {animal.Celular}</p>
+                <p><strong>Data de Nascimento:</strong> {new Date(animal.Nascimento).toLocaleDateString()}</p>
+                <p><strong>Endereço:</strong> {animal.Endereço}</p>
+                <p><strong>Cidade:</strong> {animal.Cidade}</p>
+                <p><strong>Estado:</strong> {animal.Estado}</p>
+                <p><strong>CEP:</strong> {animal.Cep}</p>
+                <div className="action-buttons-card">
+                  <button onClick={() => handleEdit(animal)}>Alterar</button>
+                  <button onClick={() => handleDelete(animal.Id)}>Excluir</button>
+                </div>
               </div>
             </div>
           ))}
         </div>
-         <button className="add-button">➕ <Link to = '/cadastroCliente'>Adicionar</Link></button>
       </main>
-    </div>  
-  );
+    </div>
+  );
 }

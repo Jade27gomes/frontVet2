@@ -13,24 +13,22 @@ export default function CadastroPet() {
     sexo: ''
   });
 
+  const [foto, setFoto] = useState(null);
   const [usuarioValido, setUsuarioValido] = useState(true);
   const [usuarios, setUsuarios] = useState([]);
 
-  // Função para buscar todos os usuários
   useEffect(() => {
     const fetchUsuarios = async () => {
       try {
         const res = await axios.get('http://localhost:2025/usuarios');
-        setUsuarios(res.data);  // Assume que res.data é um array de usuários
+        setUsuarios(res.data);
       } catch (err) {
         console.error('Erro ao carregar usuários:', err);
       }
     };
-
     fetchUsuarios();
   }, []);
 
-  // Função para verificar se o usuário existe
   const verificarUsuario = async (id) => {
     try {
       const res = await axios.get(`http://localhost:2025/cadastro/${id}`);
@@ -49,6 +47,10 @@ export default function CadastroPet() {
     }
   };
 
+  const handleFotoChange = (e) => {
+    setFoto(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,8 +60,26 @@ export default function CadastroPet() {
     }
 
     try {
-      await axios.post('http://localhost:2025/cadastroAnimal', animal);
+      const formData = new FormData();
+      formData.append('id_usuario', animal.id_usuario);
+      formData.append('nome', animal.nome);
+      formData.append('deficiencias', animal.deficiencias);
+      formData.append('intolerancias', animal.intolerancias);
+      formData.append('data_nascimento', animal.data_nascimento);
+      formData.append('sexo', animal.sexo);
+
+      if (foto) {
+        formData.append('imagem', foto);
+      }
+
+      const { data } = await axios.post('http://localhost:2025/cadastroAnimal', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
       alert('Animal cadastrado com sucesso!');
+
       setAnimal({
         id_usuario: '',
         nome: '',
@@ -68,6 +88,7 @@ export default function CadastroPet() {
         data_nascimento: '',
         sexo: ''
       });
+      setFoto(null);
       setUsuarioValido(true);
     } catch (err) {
       console.error('Erro ao cadastrar animal:', err);
@@ -80,7 +101,7 @@ export default function CadastroPet() {
       <Sidebar />
       <div className="form-section">
         <h1>Novo animal</h1>
-        <form className="form-animal" onSubmit={handleSubmit}>
+        <form className="form-animal" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="input-group">
             <label>ID do Usuário</label>
             <input
@@ -177,6 +198,17 @@ export default function CadastroPet() {
                 </label>
               </div>
             </div>
+          </div>
+
+          <div className="input-group">
+            <label>Foto do animal</label>
+            <input
+              type="file"
+              accept="image/*"
+              id="imagem"
+              onChange={handleFotoChange}
+              required
+            />
           </div>
 
           <button type="submit" className="save-btn">Salvar</button>

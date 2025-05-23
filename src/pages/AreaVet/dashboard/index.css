@@ -1,160 +1,81 @@
+/* Layout base */
 .dashboard-container {
-    display: flex;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-  }
-  
-  .sidebar {
-    width: 220px;
-    background-color: #f1f1f1;
-    padding: 20px;
-    border-right: 3px solid #2c7ca8;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .logo {
-    width: 60px;
-    margin-bottom: 10px;
-  }
-  
-  .logo-title {
-    margin-bottom: 30px;
-    font-weight: bold;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-  }
-  
-  .sidebar li {
-    background-color: #e4e4e4;
-    padding: 12px;
-    margin: 8px 0;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: left;
-  }
-  
-  .sidebar li.active {
-    background-color: #2c7ca8;
-    color: white;
-    font-weight: bold;
-  }
-  
-  .logout-btn {
-    margin-top: auto;
-    background-color: transparent;
-    border: 1px solid #2c7ca8;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .main-content {
-    flex-grow: 1;
-    padding: 30px;
-    overflow-y: auto;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .date {
-    background-color: #eee;
-    padding: 6px 12px;
-    border-radius: 15px;
-    font-size: 14px;
-  }
-  
-  .stats {
-    display: flex;
-    gap: 30px;
-    margin: 30px 0;
-  }
-  
-  .stat-card {
-    background-color: #41545d;
-    color: white;
-    padding: 25px;
-    border-radius: 15px;
-    flex: 1;
-    text-align: center;
-  }
-  
-  .animal-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-  }
-  
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .avatar {
-    font-size: 24px;
-  }
-  
-  .info {
-    flex-grow: 1;
-    margin-left: 15px;
-  }
-  
-  .price {
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  .status-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-  }
-  
-  .status-dot.orange {
-    background-color: orange;
-  }
-  
-  .status-dot.green {
-    background-color: green;
-  }
-  
-  .status-dot.blue {
-    background-color: blue;
-  }
-  
-  .card-body {
-    margin-top: 10px;
-  }
-  
-  .status.pendente {
-    color: orange;
-  }
-  
-  .status.concluido {
-    color: green;
-  }
-  
-  .status.finalizado {
-    color: blue;
-  }
-  
-  .owner.aguardando {
-    color: orange;
-  }
-  
-  .owner.caminho {
-    color: blue;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #ffffff;
+  font-family: sans-serif;
+}
+
+.dashboard-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2e2e2e;
+  margin-bottom: 40px;
+}
+
+.dashboard-cards {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+/* Estilo comum dos botões principais */
+.card-clientes,
+.card-pets,
+.card-atendimento {
+  padding: 40px 20px;
+  width: 180px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.card-clientes:hover,
+.card-pets:hover,
+.card-atendimento:hover {
+  transform: scale(1.05);
+}
+
+/* Estilo do texto do Link */
+.card-clientes a,
+.card-pets a,
+.card-atendimento a,
+.logout-button a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  display: block;
+}
+
+/* Cores específicas */
+.card-clientes {
+  background-color: #90caf9; /* azul claro */
+}
+
+.card-pets {
+  background-color: #a5d6a7; /* verde claro */
+}
+
+.card-atendimento {
+  background-color: #ffcc80; /* laranja claro */
+}
+
+/* Botão de logout */
+.logout-button {
+  background-color: #90a4ae; /* cinza claro */
+  padding: 10px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.logout-button:hover {
+  transform: scale(1.05);
+}

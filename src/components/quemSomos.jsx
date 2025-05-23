@@ -1,12 +1,11 @@
 import React from 'react';
 import './quemSomos.css';
 import coupleImage from '../img/couple.png';
-import bgImage from '../img/page2.png';
 
 function QuemSomosNos() {
     return (
       <div className="quem-somos-container">
-        <img src={bgImage} alt="fundo" className="background-image" />
+
         
         <div className="content-wrapper">
           <img src={coupleImage} alt="Casal de veterinários" className="couple-image" />

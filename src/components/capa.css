@@ -1,42 +1,62 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.vet-background {
+  background-image: url('../img/capa6.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 80vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding-top: 10vh; 
+}
+
+.vet-card {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 370px;
+  text-align: left;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.vet-title {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
   color: white;
+  font-weight: 600;
 }
 
-.App-link {
-  color: #61dafb;
+.vet-description {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.vet-divider {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 20px 0;
 }
 
-.img {
-  max-width: 500px;
+.vet-button {
+  background-color: #25D366;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vet-button:hover {
+  background-color: #128C7E;
 }

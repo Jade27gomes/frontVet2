@@ -1,126 +1,198 @@
-.container-servico {
-  display: flex;
-  font-family: Arial, sans-serif;
+/* Estilos Gerais */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
 }
 
-.main-content {
-  flex: 1;
+/* Container Principal */
+.atendimentos-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #ffffff;
   padding: 20px;
-  background-color: #f9f9f9;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+/* Conteúdo Principal */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.data {
-  background-color: #eee;
-  padding: 6px 10px;
-  border-radius: 5px;
-}
-
+/* Barra de Pesquisa */
 .search-bar {
-  margin-left: auto;
   display: flex;
-  gap: 5px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .search-bar input {
-  padding: 6px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .search-bar button {
-  background-color: #2c7ca8;
+  padding: 10px 15px;
+  background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.resultado-texto {
-  margin: 15px 0;
-  color: #666;
+.search-bar button:hover {
+  background-color: #45a049;
 }
 
-.card-servico {
-  background: white;
-  border-radius: 10px;
+/* Botões de Ação */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.create-button {
+  padding: 10px 15px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-button:hover {
+  background-color: #0b7dda;
+}
+
+.back-button {
+  padding: 10px 15px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #da190b;
+}
+
+/* Estatísticas */
+.stats {
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background-color: #f8f9fa;
   padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.card-servico.novo {
-  border-left: 4px solid #2c7ca8;
+.stat-card h2 {
+  margin: 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.stat-card p {
+  margin: 5px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Cards de Atendimento */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.atendimento-card {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
 .card-header {
+  background-color: #e9ecef;
+  padding: 15px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card-header .info {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-.preco {
-  font-weight: bold;
+.card-body {
+  padding: 15px;
 }
 
-.dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-left: 5px;
+.card-body p {
+  margin: 8px 0;
+  color: #333;
+  font-size: 14px;
 }
 
-.dot.laranja { background: orange; }
-.dot.verde { background: green; }
-.dot.azul { background: #00bfff; }
-
-.info p {
-  margin: 5px 0;
-}
-
-.status-em-andamento { color: orange; font-weight: bold; }
-.status-aguardando { color: red; }
-.status-concluido { color: green; font-weight: bold; }
-.status-caminho { color: #00bfff; }
-.status-finalizado { color: #2c7ca8; font-weight: bold; }
-
-.adicionar-btn {
-  background-color: #2c7ca8;
+.delete-button {
+  padding: 8px 12px;
+  background-color: #f44336;
   color: white;
   border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
-  float: right;
   margin-top: 10px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
-.adicionar-btn:hover {
-  background-color: #24688a;
+.delete-button:hover {
+  background-color: #da190b;
 }
 
-.novo-atendimento-btn {
-  background-color: #2c7ca8;
+/* Mensagens de Estado */
+.loading-container,
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white;
+  color: #333;
+  font-size: 18px;
+}
+
+.error-container {
+  color: #f44336;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-button {
+  padding: 8px 12px;
+  background-color: #ff9800;
   color: white;
   border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
-.novo-atendimento-btn:hover {
-  background-color: #24688a;
-}
-
-.header .novo-atendimento-btn {
-  margin-left: 10px;
+.edit-button:hover {
+  background-color: #e68a00;
 }
